@@ -3,7 +3,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.baseURL = '/alpha'
 
 module.exports = {
-    Post: function (url, data) {
+    Post: function (baseUrl, url, data) {
+        axios.defaults.baseURL = baseUrl
         return axios.post(url, data)
     },
     proxyTableConfig: {
@@ -12,6 +13,20 @@ module.exports = {
             changeOrigin: true,
             pathRewrite: {
                 '^/alpha': ''
+            }
+        },
+        '/sit': {
+            target: 'http://sit.mini.router',
+            changeOrigin: true,
+            pathRewrite: {
+                '^/sit': ''
+            }
+        },
+        '/online': {
+            target: 'http://online.mini.router',
+            changeOrigin: true,
+            pathRewrite: {
+                '^/online': ''
             }
         }
     }

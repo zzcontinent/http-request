@@ -1,6 +1,16 @@
 
 <template>
   <div class="request">
+    <h2>平台</h2>
+    <select v-model="m_plat">
+      <option
+        value="/alpha"
+        selected="selected"
+      >alpha</option>
+      <option value="/sit">sit</option>
+      <option value="/online">online</option>
+    </select>
+
     <h2>服务名</h2>
     <input
       type="text"
@@ -33,12 +43,13 @@ export default {
     return {
       m_url: '/MINI_Fans/GainFans',
       m_msg: JSON.stringify({ 'ChartView': 1, 'Uid': 2 }),
-      m_ret: ''
+      m_ret: '',
+      m_plat: '/alpha'
     }
   },
   methods: {
     request: function () {
-      utilRequest.Post(this.m_url, JSON.parse(this.m_msg)).then((res) => {
+      utilRequest.Post(this.m_plat, this.m_url, JSON.parse(this.m_msg)).then((res) => {
         this.m_ret = utilMisc.formatJson(res.data)
       }).catch((err) => {
         console.error(err)
